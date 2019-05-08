@@ -1,10 +1,10 @@
 (a) Assume that every word is matched to an integer number k. Because the true empirical distribution $y​$ is a one-hot vector, for the word $o​$, only the entry in corresponding position in $\log(\hat{y}_o)​$ will have non-zero product.
 
-$$-\sum\limits_{w\in Vocab}y_w\log(\hat{y}_w)= -\sum\limits_{w\in Vocab}\mathbb{1}\{w=o\}\log(\hat{y}_w)= -\log(\hat{y}_o)$$
+$$-\sum\limits_{w\in Vocab}y_w\log(\hat{y}_w)= -\sum\limits_{w\in Vocab}\mathbb{1}\{w=o\}\log(\hat{y}_w)= -\log(\hat{y}_o)​$$
 
 (b)
 
-$$\begin{align}\nabla_{v_c}J(v_c, o, U) &= \dfrac{\partial}{\partial v_c}\left(-\log\dfrac{\exp(u_o^Tv_c)}{\sum_{w\in Vocab}\exp(u_w^Tv_c)}\right)\\ &= -\dfrac{\partial}{\partial v_c}\log\dfrac{\exp(u_o^Tv_c)}{\sum_{w\in Vocab}\exp(u_w^Tv_c)} \\&= -\dfrac{\partial}{\partial v_c}\left(\log\exp(u_o^Tv_c) - \log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right) \\&= -\dfrac{\partial}{\partial v_c}\left(u_o^Tv_c - \log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right)\\&= -\left(\dfrac{\partial u_o^Tv_c}{\partial v_c} - \dfrac{\partial}{\partial v_c}\log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right)\\&= -\left(u_o - \sum_{w\in Vocab}\dfrac{\exp(u_w^Tv_c)}{\sum_{x\in Vocab}\exp(u_x^Tv_c)}u_w\right) \\&=-\left(u_o - \sum_{w\in Vocab}\hat{y}_wu_w\right)\\&=U\hat{y}-u_o \end{align}$$
+$$\begin{align}\nabla_{v_c}J(v_c, o, U) &= \dfrac{\partial}{\partial v_c}\left(-\log\dfrac{\exp(u_o^Tv_c)}{\sum_{w\in Vocab}\exp(u_w^Tv_c)}\right)\\ &= -\dfrac{\partial}{\partial v_c}\log\dfrac{\exp(u_o^Tv_c)}{\sum_{w\in Vocab}\exp(u_w^Tv_c)} \\&= -\dfrac{\partial}{\partial v_c}\left(\log\exp(u_o^Tv_c) - \log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right) \\&= -\dfrac{\partial}{\partial v_c}\left(u_o^Tv_c - \log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right)\\&= -\left(\dfrac{\partial u_o^Tv_c}{\partial v_c} - \dfrac{\partial}{\partial v_c}\log\sum_{w\in Vocab}\exp(u_w^Tv_c)\right)\\&= -\left(u_o - \sum_{w\in Vocab}\dfrac{\exp(u_w^Tv_c)}{\sum_{x\in Vocab}\exp(u_x^Tv_c)}u_w\right) \\&=-\left(u_o - \sum_{w\in Vocab}\hat{y}_wu_w\right)\\&=U\hat{y}-u_o = U\hat{y} - Uy = U(\hat{y} - y)\end{align}$$
 
 (c)
 
@@ -14,7 +14,7 @@ $$\begin{align}\nabla_{u_w}J &=\dfrac{\partial}{\partial u_w}\left(-\log\dfrac{\
 
 进一步：
 
-$$\nabla_U J_{\text{naive-softmax}} = v_c\hat{y}^T - b$$
+$$\nabla_U J_{\text{naive-softmax}} = (\hat{y} - y)^T v_c$$
 
 其中，在 $o$ 对应的位置，有 $v_c$，其余全部为 0
 
@@ -30,7 +30,7 @@ $$\begin{align}\nabla_{v_c} J_{\text{neg-sample}} &= -\dfrac{\partial}{\partial 
 
 (ii)
 
-$$\begin{align}\nabla_{u_o} J_{\text{neg-sample}}&= - \dfrac{\partial}{\partial u_o}\log(\sigma(u_o^Tv_c))-\sum_{k=1}^K\dfrac{\partial}{\partial u_o}\log(\sigma(-u_k^Tv_c))  \\&= - \dfrac{\sigma(u_o^Tv_c)(1 -  \sigma(u_o^Tv_c))v_c}{\sigma(u_o^Tv_c)} \\&= -(1 -  \sigma(u_o^Tv_c))v_c\end{align}$$
+$$\begin{align}\nabla_{u_o} J_{\text{neg-sample}}&= - \dfrac{\partial}{\partial u_o}\log(\sigma(u_o^Tv_c))-\sum_{k=1}^K\dfrac{\partial}{\partial u_o}\log(\sigma(-u_k^Tv_c))  \\&= - \dfrac{\sigma(u_o^Tv_c)(1 -  \sigma(u_o^Tv_c))v_c}{\sigma(u_o^Tv_c)} \\&= -(1 -  \sigma(u_o^Tv_c))v_c\end{align}​$$
 
 更进一步：
 
