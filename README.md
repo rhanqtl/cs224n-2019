@@ -6,10 +6,14 @@
 
 Home Page: [http://web.stanford.edu/class/cs224n/index.html](http://web.stanford.edu/class/cs224n/index.html)
 
-[TOC]
+## Table of Contents
 
-## 1 Notes
+1. [Notes](#Notes)
+2. [Assignments](#Assignments)
+3. [Project](#Project)
 
-## 2 Assignments
+### Notes
 
-## 3 Project
+### Assignments
+
+### Project
